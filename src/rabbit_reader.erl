@@ -196,6 +196,7 @@ shutdown(Pid, Explanation) ->
     gen_server:call(Pid, {shutdown, Explanation}, infinity).
 
 init(Parent, HelperSup, Ref, Sock) ->
+    ?LG_INFO(#{process_type => reader}),
     RealSocket = rabbit_net:unwrap_socket(Sock),
     rabbit_networking:accept_ack(Ref, RealSocket),
     Deb = sys:debug_options([]),
